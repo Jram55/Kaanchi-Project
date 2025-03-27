@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.entity.Course;
 import com.example.entity.Subject;
+import com.example.repository.CourseRepository;
 import com.example.repository.SubjectRepository;
 
 @Service
@@ -14,6 +16,9 @@ public class SubjectService {
 	
 	@Autowired
 	private SubjectRepository subjectrepo;
+	
+	@Autowired
+	private CourseRepository courserepo;
 
 	public List<Subject> getallSubjcet() {
 	
@@ -29,6 +34,21 @@ public class SubjectService {
 
 		subjectrepo.deleteById(subjectId);
 		
+	}
+
+	
+
+	public Subject addSubjectToCourse(long subjectId, long courseId) {
+		
+		Course course=courserepo.findById(courseId).orElseThrow(()->
+		new RuntimeException("Course Not Found"));
+		
+		Subject sub=subjectrepo.findById(subjectId).orElseThrow(()->
+		new RuntimeException("subject not found"));
+		
+		sub.setCourse(course);
+		
+		return subjectrepo.save(sub);
 	}
 	
 }

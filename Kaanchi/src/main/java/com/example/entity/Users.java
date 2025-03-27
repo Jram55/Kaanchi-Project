@@ -2,6 +2,8 @@ package com.example.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,8 +30,8 @@ public class Users {
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="roles")
-	private String roles;
+	@Enumerated(EnumType.STRING)
+	private Role roles;
 	
 	@Column(name="deleted")
 	private boolean deleted;

@@ -3,8 +3,7 @@ package com.example.config;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
-
-
+import java.util.stream.Stream;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,8 +27,8 @@ public class UserInfoDetails implements UserDetails {
 	public UserInfoDetails(Users user) {
 		this.username=user.getUserName();
 	    this.password=user.getPassword();
-	      this.authorities=  Arrays.stream(user.getRoles().split(","))
-	    		  .map(SimpleGrantedAuthority::new)
+	      this.authorities= Stream.of(user)
+	    		  .map(e->new SimpleGrantedAuthority(e.getRoles().name()))
 	                .collect(Collectors.toList());
 	    }
 	

@@ -3,7 +3,6 @@ package com.example.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -59,6 +58,10 @@ public class Course {
 	@JoinColumn(name="student_id")
 	@JsonBackReference
 	private Student student;
+	
+	
+//	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL)
+//	private List<Subject> subject;
 	
 	
 }

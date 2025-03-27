@@ -1,7 +1,12 @@
 package com.example.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,21 +21,25 @@ import com.example.service.UserService;
 @RequestMapping("/auth")
 @CrossOrigin
 public class AuthenticationController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/login")
-	public String login(@RequestBody LoginDto request)throws Exception {
-		
+	public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto request) throws Exception {
 
-		if (userService.login(request)) {
-			LoginResponseDto response = userService.getLoginData(request);
-			return response.getToken() ;
-		} else {
-			return "Error";
+		LoginResponseDto response = userService.login(request);
+		if (response != null) {
+
+			Map<String, String> responseBody = new HashMap<>();
+			responseBody.put("jwt", response.getToken());
+			responseBody.put("name", response.getName());
+
+			return ResponseEntity.ok(responseBody);
 		}
-		
-	}
 
+		// Return an error response if login fails
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+				.body(Collections.singletonMap("error", "UserName or Password wrong"));
+	}
 }

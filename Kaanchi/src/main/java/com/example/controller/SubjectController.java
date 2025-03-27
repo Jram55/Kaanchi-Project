@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dto.SubjectDto;
 import com.example.entity.Subject;
 import com.example.service.SubjectService;
 
@@ -38,7 +39,14 @@ public class SubjectController {
 	public ResponseEntity<Subject> save(@RequestBody Subject subject){
 		
 		subjectservice.saveSubject(subject);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(subject,HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/addcourse")
+	public ResponseEntity<Subject> addsubjectTocourse(@RequestBody SubjectDto sub){
+		
+		subjectservice.addSubjectToCourse(sub.getSubjectId(),sub.getCourseId());
+		return new ResponseEntity(subjectservice,HttpStatus.OK);
 	}
 	
 	

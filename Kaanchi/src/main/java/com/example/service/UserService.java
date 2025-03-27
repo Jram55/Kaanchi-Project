@@ -1,17 +1,13 @@
 package com.example.service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.utils.Constants;
 import com.example.config.JwtService;
 import com.example.dto.LoginDto;
 import com.example.dto.LoginResponseDto;
@@ -61,34 +57,29 @@ public class UserService {
 
 	}
 
-	public boolean login(LoginDto loginDto) {
-		Optional<Users> _user = userrepository.findByUserName(loginDto.getUserName());
-		if (_user.isPresent()) {
-			Users user = _user.get();
-			System.out.println(loginDto.getPassword());
-			if (passwordencoder.matches(loginDto.getPassword(),user.getPassword())) {
-				return true;
-			}
-			else {
-			
-				return false;
-			}
-		}
-			else {
-			return false;
-	}
-	}
-	public LoginResponseDto getLoginData(LoginDto loginDto) {
-		LoginResponseDto loginResponseDto = new LoginResponseDto();
-		Optional<Users> users = userrepository.findByUserName(loginDto.getUserName());
-		if (!users.isEmpty()) {
+    public LoginResponseDto login(LoginDto loginDto) {
+        Optional<Users> optionalEmployee = userrepository.findByUserName(loginDto.getUserName());
 
-			String token = jwtservice.generateToken(users.get().getUserName());
-			loginResponseDto.setToken(token);
-			return loginResponseDto;
-		} else {
-			return null;
-		}
-	}
+        if (optionalEmployee.isPresent()) {
+            Users user = optionalEmployee.get();
+
+            // Check if password matches
+            if (passwordencoder.matches(loginDto.getPassword(), user.getPassword())) {
+
+                // Generate JWT token with the user's role
+                String role = user.getRoles().name();
+                String token = jwtservice.generateToken(user.getUserName(), List.of(role));
+
+                // Prepare response DTO
+                LoginResponseDto loginResponseDto = new LoginResponseDto();
+                loginResponseDto.setToken(token);
+                loginResponseDto.setRole(role);
+                loginResponseDto.setName(user.getUserName());
+
+                return loginResponseDto;
+            }
+        }
+        return null;  // Return null if authentication fails
+    }
 
 }
