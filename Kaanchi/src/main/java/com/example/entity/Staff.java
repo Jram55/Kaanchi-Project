@@ -1,7 +1,5 @@
 package com.example.entity;
 
-
-
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -23,74 +21,66 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="staff")
+@Table(name = "staff")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
 @JsonIdentityInfo(
 
-	      generator = ObjectIdGenerators.PropertyGenerator.class,
+		generator = ObjectIdGenerators.PropertyGenerator.class,
 
-	      property = "staffId")
+		property = "staffId")
 public class Staff {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="StaffId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "StaffId")
 	private long staffId;
-	
-	@Column(name="staffName")
+
+	@Column(name = "staffName")
 	private String staffName;
-	
-	@Column(name="staffNumber")
+
+	@Column(name = "staffNumber")
 	private String staffNumber;
-	
-	
-	@Column(name="gender")
+
+	@Column(name = "gender")
 	private String gender;
-	
-	
-	@Column(name="dob")
+
+	@Column(name = "dob")
 	private Date doB;
-	
-	@Column(name="doj")
+
+	@Column(name = "doj")
 	private Date doJ;
-	
-	
-	
-	@Column(name="designation")
+
+	@Column(name = "designation")
 	private String designation;
-	
-	@Column(name="photo")
+
+	@Column(name = "photo")
 	private String photo;
-	
-	@Column(name="qualification")
+
+	@Column(name = "qualification")
 	private String qulification;
-	
-	@Column(name="speclization")
+
+	@Column(name = "speclization")
 	private String specialization;
-	
-	@Column(name="dor")
+
+	@Column(name = "dor")
 	private Date dOR;
-	
-	@Column(name="releavingreson")
+
+	@Column(name = "releavingreson")
 	private String releavingReason;
-	
+
 	private long recordId;
-	
-	@Column(name="deleted")
+
+	@Column(name = "deleted")
 	private boolean deleted;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="department_id")
-	private Department department;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Experience experience;
-	
-	
-	
-	
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "department_id")
+	private Department department;
+
 }

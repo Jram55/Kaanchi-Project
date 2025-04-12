@@ -34,6 +34,19 @@ public class SubjectController {
 		return subjectservice.getallSubjcet();
 	}
 	
+	@GetMapping("/{subjectId}")
+	public ResponseEntity<?> getById(@PathVariable long subjectId){
+		
+		try {
+			Subject sub= subjectservice.getSubjectById(subjectId);
+			return ResponseEntity.ok().body(sub);
+		}
+		catch(Exception e){
+			
+			return ResponseEntity.badRequest().body("not Found");
+		}
+	}
+	
 	
 	@PostMapping
 	public ResponseEntity<Subject> save(@RequestBody Subject subject){
@@ -50,7 +63,7 @@ public class SubjectController {
 	}
 	
 	
-	@DeleteMapping("/subjectId")
+	@DeleteMapping("/{subjectId}")
 	public void delete(@PathVariable Long subjectId) {
 		
 		subjectservice.deleteSubject(subjectId);

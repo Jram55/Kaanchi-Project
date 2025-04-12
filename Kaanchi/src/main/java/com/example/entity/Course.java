@@ -3,6 +3,7 @@ package com.example.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,48 +21,44 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="course")
+@Table(name = "course")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Course {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="CourseId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CourseId")
 	private long courseId;
-	
-	
-	@Column(name="courseName")
+
+	@Column(name = "courseName")
 	private String courseName;
-	
-	@Column(name="courseType")
+
+	@Column(name = "courseType")
 	private String courseType;
-	
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="department_id")
-	private Department department;
-	
-	@Column(name="years")
+
+	@Column(name = "years")
 	private int years;
-	
-	
+
 	private long recordId;
-	
-	@Column(name="deleted")
+
+	@Column(name = "deleted")
 	private boolean deleted;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="student_id")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "department_id")
+	// @JsonBackReference
+	private Department department;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "student_id")
 	@JsonBackReference
 	private Student student;
-	
-	
-//	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL)
-//	private List<Subject> subject;
-	
-	
+
+	// @JsonManagedReference
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	private List<Subject> subject;
+
 }

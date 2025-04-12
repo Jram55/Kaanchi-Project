@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
@@ -19,46 +20,41 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="department")
+@Table(name = "department")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIdentityInfo(
 
-	      generator = ObjectIdGenerators.PropertyGenerator.class,
+		generator = ObjectIdGenerators.PropertyGenerator.class,
 
-	      property = "departmentId")
+		property = "departmentId")
 
 public class Department {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="DepartmentId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "DepartmentId")
 	private long departmentId;
-	
-	@Column(name="departmentName")
-	private String departmentName;
-	
 
-   
-    private String hodname;
-	
-	
+	@Column(name = "departmentName")
+	private String departmentName;
+
+	private String hodname;
+
 	private long recordId;
-	
-	@Column(name="deleted")
+
+	@Column(name = "deleted")
 	private boolean deleted;
-	
+
+	// @JsonIgnore
+	// @JsonManagedReference
+	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+	private List<Course> course;
+
 	@JsonIgnore
-	@OneToMany(mappedBy="department",cascade=CascadeType.ALL)
-	private List<Course> course; 
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="department",cascade=CascadeType.ALL)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
 	private List<Staff> staff;
-	
-	
-	
-	
+
 }

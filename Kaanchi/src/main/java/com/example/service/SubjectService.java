@@ -50,5 +50,12 @@ public class SubjectService {
 		
 		return subjectrepo.save(sub);
 	}
+
+	public Subject getSubjectById(long subjectId) {
+		
+		return subjectrepo.findById(subjectId).orElseThrow(()->
+		new RuntimeException("Subject not found"));
+		
+	}
 	
 }
