@@ -53,6 +53,7 @@ public class Subject {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CourseId")
+	@JsonBackReference
 	private Course course;
 
 	@ManyToOne

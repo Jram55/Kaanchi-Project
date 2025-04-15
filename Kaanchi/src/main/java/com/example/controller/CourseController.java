@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.CourseDto;
+import com.example.dto.StudentCourseDto;
 import com.example.entity.Course;
 import com.example.service.CourseService;
 
@@ -26,15 +27,15 @@ public class CourseController {
   
   
   @GetMapping
-  public List<Course> getall(){
+  public List<CourseDto> getall(){
     
-    return courseservice.getallcourse();
+    return courseservice.getallCourse();
   }
   
   @GetMapping("/{courseId}")
-  public ResponseEntity<Course> getById(@PathVariable Long courseId) {
+  public ResponseEntity<CourseDto> getById(@PathVariable Long courseId) {
     
-   Course course= courseservice.getcourseById(courseId);
+   CourseDto course= courseservice.getcourseById(courseId);
     return new ResponseEntity<>(course,HttpStatus.OK);
     
   }
@@ -48,9 +49,9 @@ public class CourseController {
   }
   
   @PostMapping("/student/course")
-  public ResponseEntity<Course> studentcourse(@RequestBody CourseDto coursedto){
+  public ResponseEntity<Course> studentcourse(@RequestBody StudentCourseDto Scoursedto){
     
-    Course course=courseservice.studentycourse(coursedto.getStudentId(),coursedto.getCourseId());
+    Course course=courseservice.studentycourse(Scoursedto.getStudentId(),Scoursedto.getCourseId());
     return new ResponseEntity<>(course,HttpStatus.CREATED);
   }
   

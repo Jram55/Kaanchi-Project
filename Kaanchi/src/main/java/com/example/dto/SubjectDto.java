@@ -8,8 +8,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SubjectDto {
+
 	
-	private long courseId;
-	private long subjectId;
+
+	private String subjectName;
+
+	private String subjectCode;
+
+	private String subjectType;
+
+	private long recordId;
+
+	private boolean deleted;
 
 }

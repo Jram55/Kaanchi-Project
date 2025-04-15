@@ -1,7 +1,5 @@
 package com.example.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,53 +14,50 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="parent")
+@Table(name = "parent")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Parent {
 
-  @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  @Column(name="ParentId")
-  private long parentId;
-  
-  @Column(name="parentName")
-  private String parentName;
-  
-  @Column(name="gender")
-  private String gender;
-  
-  @Column(name="relationship")
-  private String relationShip;
-  
-  @Column(name="mobile")
-  private String mobile;
-  
-  @Column(name="email")
-  private String email;
-  
-  @Column(name="occupation")
-  private String occupation;
-  
-  @Column(name="annunalIncome")
-  private String annunalIncome;
-  
-  @Column(name="education")
-  private String education;
-  
-  @Column(name="guardian")
-  private boolean guardian;
-  
-  @JsonBackReference
-  @ManyToOne(fetch=FetchType.EAGER)
-  @JoinColumn(name="studentid")
-  private Student student;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ParentId")
+	private long parentId;
 
-  
-  
-  @Column(name="deleted")
-  private boolean deleted;
-  
-  
+	@Column(name = "parentName")
+	private String parentName;
+
+	@Column(name = "gender")
+	private String gender;
+
+	@Column(name = "relationship")
+	private String relationShip;
+
+	@Column(name = "mobile")
+	private String mobile;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "occupation")
+	private String occupation;
+
+	@Column(name = "annunalIncome")
+	private String annunalIncome;
+
+	@Column(name = "education")
+	private String education;
+
+	@Column(name = "guardian")
+	private boolean guardian;
+
+	@Column(name = "deleted")
+	private boolean deleted;
+
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "studentid")
+	private Student student;
+
 }

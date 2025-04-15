@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StaffDto {
 	
-	private long departmentId;
+	
 
 	private long staffId;
 

@@ -1,6 +1,5 @@
 package com.example.dto;
 
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -10,21 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDto {	
+public class Departmentdto {
 
-	private long courseId;
-
-	private String courseName;
-
-	private String courseType;
-
-	private int years;
-
+	private long departmentId;
+	private String departmentName;
+	private String hodname;
 	private long recordId;
-
 	private boolean deleted;
-	
-	private List<SubjectDto> subject;
-
+	private List<CourseDto> course;
 	
 }

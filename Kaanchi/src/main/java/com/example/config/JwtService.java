@@ -1,12 +1,12 @@
 package com.example.config;
 
+
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-
-import javax.crypto.SecretKey;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 
@@ -21,7 +22,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-	public static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	public static final String SECRET = "eTZ3MVhyL0lJeEFtTzgrL1E1VEQxL1J4Y2E3NUR3M3lucDRQc0IyUUJlTT0";
 
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
@@ -38,7 +39,7 @@ public class JwtService {
 
 	private Claims extractAllClaims(String token) {
 		return Jwts.parserBuilder()
-				.setSigningKey(SECRET_KEY)
+				.setSigningKey(getSignKey())
 				.build()
 				.parseClaimsJws(token)
 				.getBody();
@@ -61,7 +62,12 @@ public class JwtService {
 				.setSubject(username)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 60 * 1000)) // Token valid for 5 hours
-				.signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+				.signWith(getSignKey(), SignatureAlgorithm.HS256)
 				.compact();
 	}
+	
+	 private Key getSignKey() {
+	        byte[] keyBytes= Decoders.BASE64.decode(SECRET);
+	        return Keys.hmacShaKeyFor(keyBytes);
+	    }
 }

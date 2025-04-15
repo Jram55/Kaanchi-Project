@@ -14,7 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -109,7 +108,7 @@ public class Student {
   @Column(name = "deleted")
   private boolean deleted;
   
-  @JsonManagedReference
+ 
   @OneToMany(mappedBy = "student",cascade=CascadeType.ALL)
   public List<Parent> parent;
   
@@ -118,10 +117,12 @@ public class Student {
   public Address address;
   
   
+  
   @JsonManagedReference
   @OneToMany(mappedBy="student",cascade=CascadeType.ALL)
   public List<Course> course;
   
+
   @OneToMany(mappedBy ="student",cascade=CascadeType.ALL)
   public List<AcademicYear> academicyear;
 

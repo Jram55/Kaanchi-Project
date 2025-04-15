@@ -49,7 +49,7 @@ public class Course {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department_id")
-	// @JsonBackReference
+	@JsonBackReference
 	private Department department;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -57,7 +57,7 @@ public class Course {
 	@JsonBackReference
 	private Student student;
 
-	// @JsonManagedReference
+	@JsonManagedReference
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private List<Subject> subject;
 

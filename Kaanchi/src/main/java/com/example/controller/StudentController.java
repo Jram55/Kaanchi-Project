@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dto.StudentDto;
 import com.example.entity.Student;
 import com.example.service.StudentService;
 
@@ -28,7 +29,7 @@ public class StudentController {
 	
 	
 	@GetMapping
-	public List<Student> getAll(){
+	public List<StudentDto> getAll(){
 		return studentservice.getallstudent();
 	}
 	

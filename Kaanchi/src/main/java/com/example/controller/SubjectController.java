@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dto.SubjectDto;
+import com.example.dto.SubjectCourseDto;
 import com.example.entity.Subject;
 import com.example.service.SubjectService;
 
@@ -56,9 +56,9 @@ public class SubjectController {
 	}
 	
 	@PostMapping("/addcourse")
-	public ResponseEntity<Subject> addsubjectTocourse(@RequestBody SubjectDto sub){
+	public ResponseEntity<Subject> addsubjectTocourse(@RequestBody SubjectCourseDto subcourse){
 		
-		subjectservice.addSubjectToCourse(sub.getSubjectId(),sub.getCourseId());
+		subjectservice.addSubjectToCourse(subcourse.getSubjectId(),subcourse.getCourseId());
 		return new ResponseEntity(subjectservice,HttpStatus.OK);
 	}
 	

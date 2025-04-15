@@ -47,8 +47,9 @@ public class Department {
 	@Column(name = "deleted")
 	private boolean deleted;
 
-	// @JsonIgnore
-	// @JsonManagedReference
+	
+	//@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
 	private List<Course> course;
 

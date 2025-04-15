@@ -76,6 +76,7 @@ public class Staff {
 	@Column(name = "deleted")
 	private boolean deleted;
 
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Experience experience;
 
